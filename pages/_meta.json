@@ -1,10 +1,10 @@
 {
   "index": "Introduction",
   "environment": "Environment",
-  "component": "Creating components",
+  "components": "Components",
+  "helix": "Helix",
   "graphql":"GraphQL",
-  "sitecore": "Sitecore",
-  "helix": "helix",
+  "sitecore": "Sitecore glossary",
   "about": {
     "title": "About",
     "type": "page"

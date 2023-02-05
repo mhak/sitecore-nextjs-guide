@@ -1,11 +1,44 @@
-In order to run docker, ports 443 and 8984 must be free.
+import { Callout } from 'nextra-theme-docs'
 
+# Installing and running the Sitecore environment
+In order to run Sitecore with docker, ports 443 and 8984 must be free as Sitecore uses those ports for SSL and Solr respectively.
+
+## Clear ports
 1. Stop port 443, stop IIS by running iisreset /stop
 2. Stop any Solr services running on port 8984
     1. In powershell, check what's using the port by running
-    ```Get-Process -Id (Get-NetTCPConnection -LocalPort 8984).OwningProcess```
-    2. If you get the error, there's nothing running on port 8984 and you're good to go.
-```Get-NetTCPConnection : No MSFT_NetTCPConnection objects found with property 'LocalPort' equal to '8984'. Verify the value of the property and retry.```
-    3. If you need to stop the service
-        * run `Stop-Service -Name "the name of your service"`
+    ```
+    Get-Process -Id (Get-NetTCPConnection -LocalPort 8984).OwningProcess
+    ```
+    2. If you get the error below, there's nothing running on port 8984 and you're good to go.
+    ```
+    Get-NetTCPConnection : No MSFT_NetTCPConnection objects found with property 'LocalPort' equal to '8984'. Verify the value of the property and retry.
+    ```
+    3. If it does return a process, run the below to stop the service.
+        * In cmd, run `Stop-Service -Name "the name of your service"`
         * or if using nssm, run `nssm stop "the name of your service"`
+
+## Installing
+1. In powershell, navigate to a directory e.g. c:\repos
+2. Run `dotnet new sitecore.nextjs.gettingstarted -n XmNextJs` (replace XmNextJs with your own project name)
+3. Navigate to the directory of your project e.g. XmNextJs
+    1. run `.\init.ps1 -InitEnv -Topology "xm1" -LicenseXmlPath "path\to\license.xml" -AdminPassword "yourpasswordhere"`
+    <Callout>
+        Change `path\to\license.xml` with the correct path to your license.
+    </Callout>
+    <Callout>
+        Change `yourpasswordhere` with a password of your choosing.
+        You will need this for step 7.
+    </Callout>
+    2. The script will prompt you on how you want to configure your solution such as SSG vs SSR. I left most of this as the default
+4. Once the `.\init.ps1` script finishes, run
+    ```
+    setx NODE_EXTRA_CA_CERTS C:\Users\{yourusername}\AppData\Local\mkcert\rootCA.pem
+    ```
+    <Callout>
+        Change `{yourusername}` with your windows user name.
+    </Callout>
+5. Restart Powershell (or VSCode if you’re using that)
+6. On the directory of your project e.g. c:\repos\XmNextjs\ Run `.\up.ps1`
+7. The CM server will prompt you to log into sitecore. Enter `admin` as the user name and the password you specified on step 3.1
+8. When the script finishes, you should be able to visit your rendering host e.g. https://www.xmnextjs.localhost

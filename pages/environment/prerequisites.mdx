@@ -1,13 +1,23 @@
-# Setup
+import { Callout } from 'nextra-theme-docs'
+
 This will guide you with installing Sitecore XM and Next.js in a docker container environment.
+The beauty with using docker is that you do not have to download and install Sitecore, Solr, SQL, etc manually;
+docker will take care of that for you.
 
 ## Prerequisites
-1. **Powershell 5.1** - comes bundled with Windows 10
+In order to run the Sitecore XM environment in a docker container, install and verify that you have all the necessary programs.
+
+<Callout type="warning">
+    You will also need a valid Sitecore license.
+</Callout>
+
+1. **Powershell 5.1** - comes bundled with Windows 10 so you do not have to download and install.
     * **Verify**
         1. In Command Prompt, run `powershell`
         2. Run `$PSversionTable`
+        ![Powershell](../../public/images/powershell.png)
 2. **.Net Core 3.1**
-    * Download and install .Net 3.1
+    * [Download and install .Net 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1)
     * **Verify**
         1. In cmd run `dotnet -version`
 3. **.Net Framework 4.8**
@@ -18,7 +28,8 @@ This will guide you with installing Sitecore XM and Next.js in a docker containe
         (Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full").Release -ge 528040
         ```
         If it returns true, that means 4.8 is installed. [More info on how to determine .Net Framework version](https://docs.microsoft.com/en-us/dotnet/framework/migration-guide/how-to-determine-which-versions-are-installed)
-4. Download and install **[docker](https://docs.docker.com/docker-for-windows/install/)**
+4. **Docker for windows**
+    1. Download and install [docker](https://docs.docker.com/docker-for-windows/install/)
     1. Run Docker Desktop
     2. Switch to windows containers
         1. Open the windows system tray, and right click on Docker Desktop
@@ -30,6 +41,8 @@ This will guide you with installing Sitecore XM and Next.js in a docker containe
     4. To use node lts
         1. Install lts: `nvm install lts`
         2. Switch to lts: `nvm use lts`
+    5. **Verify**
+        1. In cmd, `npm -v`
 6. **Sitecore template**
     1. Install Sitecore template
     ```
