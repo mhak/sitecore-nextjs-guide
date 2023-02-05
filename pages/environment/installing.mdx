@@ -1,0 +1,11 @@
+In order to run docker, ports 443 and 8984 must be free.
+
+1. Stop port 443, stop IIS by running iisreset /stop
+2. Stop any Solr services running on port 8984
+    1. In powershell, check what's using the port by running
+    ```Get-Process -Id (Get-NetTCPConnection -LocalPort 8984).OwningProcess```
+    2. If you get the error, there's nothing running on port 8984 and you're good to go.
+```Get-NetTCPConnection : No MSFT_NetTCPConnection objects found with property 'LocalPort' equal to '8984'. Verify the value of the property and retry.```
+    3. If you need to stop the service
+        * run `Stop-Service -Name "the name of your service"`
+        * or if using nssm, run `nssm stop "the name of your service"`
