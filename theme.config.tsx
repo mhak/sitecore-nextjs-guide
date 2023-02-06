@@ -1,8 +1,19 @@
 import React from 'react'
+import { useRouter } from 'next/router'
+import { useConfig } from 'nextra-theme-docs'
 import { DocsThemeConfig } from 'nextra-theme-docs'
 
 const config: DocsThemeConfig = {
-  logo: <span>Sitecore Next.js Guide</span>,
+  logo: <strong>Sitecore Next.js Guide</strong>,
+  head: () => {
+    const { asPath } = useRouter()
+    const { frontMatter } = useConfig()
+    return <>
+      <meta property="og:url" content={`https://sitecore-nextjs-guide.vercel.app${asPath}`} />
+      <meta property="og:title" content={frontMatter.title} />
+      <meta property="og:description" content={frontMatter.description} />
+    </>
+  },
   useNextSeoProps() {
     return {
       titleTemplate: '%s – Sitecore Next.js Guide'
