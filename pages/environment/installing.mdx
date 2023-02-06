@@ -4,7 +4,8 @@ import { Callout } from 'nextra-theme-docs'
 In order to run Sitecore with docker, ports 443 and 8984 must be free as Sitecore uses those ports for SSL and Solr respectively.
 
 ## Clear ports
-1. Stop port 443, stop IIS by running iisreset /stop
+1. Stop port 443, stop IIS by running `iisreset /stop`. Note: this will stop all websites running on IIS on your machine.
+
 2. Stop any Solr services running on port 8984
     1. In powershell, check what's using the port by running
     ```
@@ -21,7 +22,11 @@ In order to run Sitecore with docker, ports 443 and 8984 must be free as Sitecor
 ## Installing
 1. In powershell, navigate to a directory e.g. c:\repos
 2. Run `dotnet new sitecore.nextjs.gettingstarted -n XmNextJs` (replace XmNextJs with your own project name)
-3. Navigate to the directory of your project e.g. XmNextJs
+    1. You will encounter a few prompts regarding dotnet restore, powershell, SSG, etc. If you're familiar with these settings, feel free to change these as you need. In this case, we'll leave select all of the default choices.
+    ![Sitecore template](../../public/images/install/install-sitecore-template.png)
+3. Once done, use Visual Studio Code to open your new project e.g. c:\repos\XmNextJs
+4. Open a new terminal
+    ![VSCode new terminal](../../public/images/install/vscode-new-terminal.png)
     1. run `.\init.ps1 -InitEnv -Topology "xm1" -LicenseXmlPath "path\to\license.xml" -AdminPassword "yourpasswordhere"`
     <Callout>
         Change `path\to\license.xml` with the correct path to your license.
@@ -30,15 +35,33 @@ In order to run Sitecore with docker, ports 443 and 8984 must be free as Sitecor
         Change `yourpasswordhere` with a password of your choosing.
         You will need this for step 7.
     </Callout>
-    2. The script will prompt you on how you want to configure your solution such as SSG vs SSR. I left most of this as the default
-4. Once the `.\init.ps1` script finishes, run
+    ![init sitecore template](../../public/images/install/init-template.png)
+    
+5. Once the `.\init.ps1` script finishes, execute the command that is mentioned at the end. This will add SSL cert.
+    ![init sitecore template](../../public/images/install/cert.png)
     ```
     setx NODE_EXTRA_CA_CERTS C:\Users\{yourusername}\AppData\Local\mkcert\rootCA.pem
     ```
     <Callout>
         Change `{yourusername}` with your windows user name.
     </Callout>
-5. Restart Powershell (or VSCode if you’re using that)
-6. On the directory of your project e.g. c:\repos\XmNextjs\ Run `.\up.ps1`
-7. The CM server will prompt you to log into sitecore. Enter `admin` as the user name and the password you specified on step 3.1
-8. When the script finishes, you should be able to visit your rendering host e.g. https://www.xmnextjs.localhost
+6. Restart Visual Studio Code
+7. At the time of this writing, there is a bug in the docker compose, which we will fix.
+    1. Open up C:\repos\XmNextJs\run\sitecore-xm1\docker-compose.override.yml
+    2. Place an extra backslash to the entrypoints
+    ```
+    entrypoint: powershell.exe -Command "& C:\\tools\\entrypoints\\iis\\Development.ps1"
+    ```
+    ![escape](../../public/images/install/escape.png)
+7. Make sure you're running Docker for Windows
+8. Make sure you [clear ports](/environment/installing#clear-ports) before proceeding
+9. We should now be ready to execute the powershell script that will download container images and build your environment. This process may take a while.
+    1. Run `.\up.ps1` 
+    ![sitecore ./up.ps1](../../public/images/install/up-command.png)
+10. The CM server will prompt you to log into sitecore.
+    1. Enter `admin` as the user name and the password you specified on step 3.11. 
+    2. Click Yes, Allow
+    ![allow cm login](../../public/images/install/cm-login.png)
+11. When the script finishes, it will launch the Content Management (**CM**) instance.
+    After a bit of time, (after the Content Delivery instance warms up) you should be able to visit your **rendering host** e.g. https://www.xmnextjs.localhost
+    ![Sitecore Jss](../../public/images/install/sitecore-jss.png)

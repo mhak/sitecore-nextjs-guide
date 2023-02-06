@@ -15,11 +15,12 @@ In order to run the Sitecore XM environment in a docker container, install and v
     * **Verify**
         1. In Command Prompt, run `powershell`
         2. Run `$PSversionTable`
-        ![Powershell](../../public/images/powershell.png)
-2. **.Net Core 3.1**
+        ![Powershell](../../public/images/verify/powershell.png)
+2. **.NET Core 3.1** or later
     * [Download and install .Net 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1)
     * **Verify**
-        1. In cmd run `dotnet -version`
+        1. In cmd run `dotnet --version`
+        ![.NET Core 3.1](../../public/images/verify/dotnet.png)
 3. **.Net Framework 4.8**
     * [Download and install .Net Framework 4.8](https://dotnet.microsoft.com/download/dotnet-core/3.1)
     * **Verify**
@@ -29,11 +30,16 @@ In order to run the Sitecore XM environment in a docker container, install and v
         ```
         If it returns true, that means 4.8 is installed. [More info on how to determine .Net Framework version](https://docs.microsoft.com/en-us/dotnet/framework/migration-guide/how-to-determine-which-versions-are-installed)
 4. **Docker for windows**
+    1. Enable **Hyper-V**
+        1. On Windows search, type "Turn on Windows features on or off"
+        2. Enable Hyper-V
+        ![Turn on Hyper-V](../../public/images/verify/hyperv.png)
     1. Download and install [docker](https://docs.docker.com/docker-for-windows/install/)
     1. Run Docker Desktop
     2. Switch to windows containers
         1. Open the windows system tray, and right click on Docker Desktop
         2. Click "Switch to windows containers…"
+        ![Docker - switch to windows containers...](../../public/images/verify/docker-switch-windows.png)
 5. **Node.js**
     1. For node.js, I like to use [NVM for windows](https://github.com/coreybutler/nvm-windows), which will allow you to easily switch node versions
     2. To use NVM, uninstall any pre-existing node installations, otherwise there will be conflict
