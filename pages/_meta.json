@@ -4,9 +4,5 @@
   "create-your-first-component": "Create your first component",
   "helix": "Helix",
   "graphql":"GraphQL",
-  "sitecore": "Sitecore glossary",
-  "about": {
-    "title": "About",
-    "type": "page"
-  }
+  "sitecore": "Sitecore glossary"
 }
