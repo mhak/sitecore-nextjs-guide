@@ -1,6 +1,7 @@
 {
   "prerequisites": "Prerequisites",
   "installing-and-running-the-sitecore-environment": "Installing and running the Sitecore environment",
+  "troubleshooting": "Troubleshooting",
   "working-in-a-docker-environment": "Working in a docker environment",
   "explore-the-solution": "Explore the solution"  
 }
