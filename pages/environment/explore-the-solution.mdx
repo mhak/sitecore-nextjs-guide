@@ -11,9 +11,10 @@ Take note that rather than having separate repositories for configuration, Sitec
 all of the source code is within this single repository. This is by design; this is to prevent having to sync different versions across multiple repositories.
 
 ## Root directory
-![Environment Sections](../../public/images/environment/environment-sections.png)
+The repository of the solution contains the following folders:
 
-The repository of the solution contains the following paths:
+![Environment - root folder](../../public/images/environment/environment-root-section.png)
+
 1. `docker` - configurations for docker builds and mounts. 
 2. `run` - docker compose to run your environment. If you're following along our guide, `run/sitecore-xm1` is the directory we use.
 This was the topology we specified when we [initialized our solution](/environment/installing-and-running-the-sitecore-environment#installing) on step 4.1
@@ -29,8 +30,10 @@ This was the topology we specified when we [initialized our solution](/environme
 ## `rendering` directory
 The `rendering` directory is where you'll spend the majority of the time as a Sitecore Next.js developer.
 
+![Environment - rendering folder](../../public/images/environment/environment-rendering-section.png)
+
 1. `data` - mocked Sitecore data. Used for running the site in disconnected mode
-2. `public` - native next.js directory. This is used it you want to place static files such as favicon
+2. `public` - native next.js directory. This is used if you want to place static files such as favicon
 3. `scripts` - various scripts from Sitecore's JSS SDK that allows communication with the CMS
 4. `sitecore` - component and template definition used for running the site in disconnected mode
 5. `src` - your custom implementation. Contains your css, javascript, .jsx, etc.
