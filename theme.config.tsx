@@ -9,7 +9,7 @@ const config: DocsThemeConfig = {
     const { asPath } = useRouter()
     const { frontMatter } = useConfig()
     return <>
-      <meta property="og:url" content={`https://sitecore-nextjs-guide.vercel.app${asPath}`} />
+      <meta property="og:url" content={`https://sitecore-nextjs-guide.hakmeng.com${asPath}`} />
       <meta property="og:title" content={frontMatter.title} />
       <meta property="og:description" content={frontMatter.description} />
     </>
