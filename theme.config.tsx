@@ -10,9 +10,11 @@ const config: DocsThemeConfig = {
     let path = asPath === '/'
       ? ''
       : asPath;
-    const { frontMatter } = useConfig()
+    const { frontMatter } = useConfig();
+    const canonicalUrl = `https://sitecore-nextjs-guide.hakmeng.com${path}`;
     return <>
-      <meta property="og:url" content={`https://sitecore-nextjs-guide.hakmeng.com${path}`} />
+      <link rel="canonical" href={canonicalUrl} />
+      <meta property="og:url" content={canonicalUrl} />
       <meta property="og:title" content={frontMatter.title} />
       <meta property="og:description" content={frontMatter.description} />
     </>
