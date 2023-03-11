@@ -7,9 +7,12 @@ const config: DocsThemeConfig = {
   logo: <strong>Sitecore Next.js Guide</strong>,
   head: () => {
     const { asPath } = useRouter()
+    let path = asPath === '/'
+      ? ''
+      : asPath;
     const { frontMatter } = useConfig()
     return <>
-      <meta property="og:url" content={`https://sitecore-nextjs-guide.hakmeng.com${asPath}`} />
+      <meta property="og:url" content={`https://sitecore-nextjs-guide.hakmeng.com${path}`} />
       <meta property="og:title" content={frontMatter.title} />
       <meta property="og:description" content={frontMatter.description} />
     </>
