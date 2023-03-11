@@ -11,7 +11,7 @@ const config: DocsThemeConfig = {
       ? ''
       : asPath;
     const { frontMatter } = useConfig();
-    const canonicalUrl = `https://sitecore-nextjs-guide.hakmeng.com${path}`;
+    const canonicalUrl = `https://sitecore-nextjs-guide.vercel.app${path}`;
     return <>
       <link rel="canonical" href={canonicalUrl} />
       <meta property="og:url" content={canonicalUrl} />
