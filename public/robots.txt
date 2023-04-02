@@ -1,3 +1,7 @@
+# *
+User-agent: *
+Disallow: /
+
 # Host
 Host: https://sitecore-nextjs-guide.vercel.app
 
