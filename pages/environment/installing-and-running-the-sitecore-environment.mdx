@@ -38,10 +38,10 @@ In order to run Sitecore with docker, ports 443 and 8984 must be free as Sitecor
 4. Open a new terminal
     ![VSCode new terminal](../../public/images/install/vscode-new-terminal.png)
     1. run `.\init.ps1 -InitEnv -Topology "xm1" -LicenseXmlPath "path\to\license.xml" -AdminPassword "yourpasswordhere"`
-    <Callout>
+    <Callout type="warning">
         Change `path\to\license.xml` with the correct path to your license.
     </Callout>
-    <Callout>
+    <Callout type="warning">
         Change `yourpasswordhere` with a password of your choosing.
         You will need this for step 7.
     </Callout>
@@ -53,7 +53,7 @@ In order to run Sitecore with docker, ports 443 and 8984 must be free as Sitecor
     ```
     setx NODE_EXTRA_CA_CERTS C:\Users\{yourusername}\AppData\Local\mkcert\rootCA.pem
     ```
-    <Callout>
+    <Callout type="warning">
         Change `{yourusername}` with your windows user name.
     </Callout>
 6. Restart Visual Studio Code
