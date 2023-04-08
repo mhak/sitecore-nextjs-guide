@@ -4,6 +4,5 @@
   "environment": "Environment",
   "create-your-first-component": "Create your first component",
   "helix": "Helix",
-  "graphql":"GraphQL",
-  "sitecore": "Sitecore glossary"
+  "graphql":"GraphQL"
 }
