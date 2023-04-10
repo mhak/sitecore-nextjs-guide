@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://sitecore-nextjs-guide.vercel.app
+Host: https://sitecore-nextjs-guide.hakmeng.com
 
 # Sitemaps
-Sitemap: https://sitecore-nextjs-guide.vercel.app/sitemap.xml
+Sitemap: https://sitecore-nextjs-guide.hakmeng.com/sitemap.xml
