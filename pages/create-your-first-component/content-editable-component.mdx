@@ -1,12 +1,15 @@
 ---
 title: Make your component content-editable
+description: We'll delve into the process of making your Sitecore component content-editable in a Next.js environment. This can be achieved by leveraging the SitecoreContext object, which can be accessed using the useSitecoreContext hook.
 ---
 
 # Make your component content-editable
-This will guide you on how to make your component content-editable. 
+We'll delve into the process of making your Sitecore component content-editable in a Next.js environment. This can be achieved by leveraging the SitecoreContext object, which can be accessed using the `useSitecoreContext` hook.
 
-## Create a template
-In the Content Editor
+The approach we'll be taking is accessing the fields of the current Sitecore item accessed by the route. If you are familiar with traditional Sitecore approach, it will be akin to accessing the fields of the `Sitecore.Context.Item` but done in a headless, Next.js way.
+
+## Create a Sitecore template
+In the Content Editor,
 
 1. Navigate to /sitecore/templates/Feature
 1. Create a Template Folder named "Article"
@@ -21,7 +24,7 @@ In the Content Editor
 ![Article Template](../../public/images/sitecore/article-template.png)
 
 ## Update the home template
-We will utilize template inheritance to bring in fields from the template was just created onto the template used by the home page.
+We will utilize Sitecore's template inheritance to bring in fields from the template was just created onto the template used by the home page.
 1. Navigate to /sitecore/templates/Project/xmnextjs/App Route
 1. Click Content
 1. Navigate to the "Article" template we created, and double click to select
@@ -32,6 +35,7 @@ We will utilize template inheritance to bring in fields from the template was ju
 1. Publish all your changes
 
 ## Verify the home route data
+To verify data about our home page, we will look at the data returned by the Sitecore Layout Service. This will be populated into the SitecoreContext object and is accessible by `useSitecoreContext` hook in Next.js.
 1. In Visual Studio Code, look in `src/rendering/scjssconfig.json` and copy the apiKey value.
 1. In a browser, open `https://cm.xmnextjs.localhost/sitecore/api/layout/render/jss?item=/&sc_apikey={YOUR API KEY}&sc_mode=normal`
 1. You should see something like below. If not, ensure you've published all items in Sitecore.
@@ -54,7 +58,12 @@ We will utilize template inheritance to bring in fields from the template was ju
 }
 ```
 ## Update component
-In Visual Studio Code, update your component.
+In Visual Studio Code, update your component. The first 3 imports from `@sitecore-jss/sitecore-jss-nextjs` are fields and field types to help render data from Sitecore.
+The last import is to the `useSitecoreContext` hook which gives access to the data populated into the SitecoreContext object which corresponds to the data returned by the [Sitecore Layout Service for the route](#verify-the-home-route-data).
+
+We will declare a type which maps properties to the field names defined in the Sitecore template. Your property names should match the field names defined in the Sitecore template.
+
+We will then get the data from the sitecoreContext, map it to the fields, and return the JSX rendering.
 
 ```tsx filename="article.tsx" showLineNumbers
 import {
