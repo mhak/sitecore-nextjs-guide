@@ -2,7 +2,7 @@
   "index": "Introduction",
   "architecture": "Architecture Overview",
   "environment": "Environment",
-  "create-your-first-component": "Create your first component",
+  "build": "Build",
   "helix": "Helix",
   "graphql":"GraphQL"
 }
