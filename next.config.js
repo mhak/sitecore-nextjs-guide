@@ -12,6 +12,11 @@ const config = {
         permanent: true,
       },
       {
+        source: '/create-your-first-component',
+        destination: '/build/create-your-first-nextjs-component',
+        permanent: true,
+      },
+      {
         source: '/create-your-first-component/content-editable-component',
         destination: '/build/sitecore-nextjs-component-content-editable',
         permanent: true,
