@@ -21,6 +21,11 @@ const config = {
         destination: '/build/sitecore-nextjs-component-content-editable',
         permanent: true,
       },
+      {
+        source: '/environment/installing',
+        destination: '/environment/installing-and-running-the-sitecore-environment',
+        permanent: true,
+      },
     ]
   },
 }
