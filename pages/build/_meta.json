@@ -1,5 +1,6 @@
 {
   "create-your-first-nextjs-component": "Create your first Sitecore Next.js Component",
   "sitecore-nextjs-component-content-editable": "Make your Next.js component content-editable",
-  "create-a-sitecore-nextjs-page": "Create a Sitecore Next.js Page"
+  "create-a-sitecore-nextjs-page": "Create a Sitecore Next.js Page",
+  "sitecore-content-serialization": "Sitecore Content Serialization"
 }
