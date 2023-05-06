@@ -41,9 +41,12 @@ To do the reverse and push content from serialized files into the Sitecore datab
 
 In a typical development work flow, you would
 1. Get the latest code from a branch (typically develop)
-1. Create a feature branch from the develop branch
-1. Run `dotnet sitecore ser push`
+1. Create a feature branch from the branch
+1. Run `dotnet sitecore ser push` to push changes other developers made to your Sitecore database 
 1. This ensures that both code and content is in sync with other developers
+1. develop your feature
+1. Run `dotnet sitecore ser pull` to serialize your content
+1. Commit your branch and create a pull request
 
 ## Sitecore Content Serialization configuration
 How does Sitecore know which content items to serialize? Sitecore utilizes json files to control what content to serialize. In `C:\repos\XmNextJs\src`, notice there are 3 files `.modules.json`
