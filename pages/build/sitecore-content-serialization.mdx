@@ -48,6 +48,7 @@ In a typical development work flow, you would
 ## Sitecore Content Serialization configuration
 How does Sitecore know which content items to serialize? Sitecore utilizes json files to control what content to serialize. In `C:\repos\XmNextJs\src`, notice there are 3 files `.modules.json`
 
+We'll take a look at the `InitItems.module.json` as an example.
 ```json filename="InitItems.module.json" showLineNumbers
 {
     "namespace": "InitItems",
@@ -73,6 +74,14 @@ How does Sitecore know which content items to serialize? Sitecore utilizes json 
     }
 }
 ```
+
+1. namespace - organize the configuration using namespace
+1. items - items this configuration applies to
+    1. includes - what items to include into the serialization
+        1. name - a descriptive name for the item
+        1. path - the sitecore path to the item in sitecore
+        1. scope - SingleItem, ItemAndChildren, ItemAndDescendants, or DescendantsOnly
+        1. allowedPushOperations - CreateOnly, CreateAndUpdate, or CreateUpdateAndDelete
 
 Learn more about [Sitecore Content Serialization configuration](https://doc.sitecore.com/xp/en/developers/101/developer-tools/sitecore-content-serialization-configuration-reference.html).
 
