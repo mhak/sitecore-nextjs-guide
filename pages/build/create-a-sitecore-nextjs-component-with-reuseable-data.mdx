@@ -10,7 +10,7 @@ However, sometimes we need to create components which can appear in multiple pla
 nightmare to enter the same data over and over for each page the component appears in.
 
 This tutorial will guide you how to create a Sitecore Next.js component with reuseable data using a Sitecore concept known as datasources. The component we'll create
-is a Call To Action component
+is a Call To Action component.
 
 ## Create a datasource template
 We'll first start by creating the datasource template. This will be a template to hold data about a Call To Action.
@@ -29,7 +29,7 @@ We'll first start by creating the datasource template. This will be a template t
 ![CallToAction template](../../public/images/sitecore/cta-template.png)
 
 ## Create datasource items
-Once we have a CallToAction template, we can create datasource items.
+Once we have a CallToAction template, we can create the datasource items.
 
 1. On `/sitecore/content/XmNextJs`, create a folder to hold CallToAction items
     1. right click, insert, Insert from template
@@ -40,13 +40,13 @@ Once we have a CallToAction template, we can create datasource items.
     1. Main ribbon, Configure, Insert Options
     1. Select CallToAction
 1. Insert a "CallToAction" item under the "CallToAction items" folder
-    1. name: Learn nextjs
-    1. description: Learn Next.js! (feel free to put your own description)
-    1. button text: Learn more!
+    1. Name: Learn nextjs
+    1. Description: Learn Next.js! (feel free to put your own description)
+    1. Button Text: Learn more!
 1. Insert another "CallToAction" item under the "CallToAction items" folder
-    1. name: Learn Sitecore
-    1. description: Learn Sitecore! (feel free to put your own description)
-    1. button text: Learn more!
+    1. Name: Learn Sitecore
+    1. Description: Learn Sitecore! (feel free to put your own description)
+    1. Button Text: Learn more!
 
 ![CallToAction items](../../public/images/sitecore/cta-items.png)
 
@@ -59,7 +59,7 @@ Once we have a CallToAction template, we can create datasource items.
     1. Datasource Template to `/sitecore/templates/Feature/CallToAction/CallToAction`
 
 We see two new settings we have not set before:  
-1. **Datasource Location** - where the datasource items are  
+1. **Datasource Location** - where the datasource items are located  
 1. **Datasource Template** - what template is compatible with the rendering  
 ![rendering template restrictions](../../public/images/sitecore/rendering-template-restrictions.png)
 
@@ -165,8 +165,9 @@ the datasource for a specific article page.
 
 <Callout>
     Knowledge check:  
-    How do we create content that is reusable in multiple places?  
-    How do we restrict a datasource's template to only be valid for a certain template?  
-    How do we specify a datasource's location?  
-    How do we render a component only if there is a datasource?
+    1. How do we create content that is reusable in multiple places?  
+    1. How do we restrict a datasource's template to only be valid for a certain template?  
+    1. How do we specify a datasource's location?  
+    1. How do we render a component only if there is a datasource?  
+    1. Do we set a renderings on datasource items? Where do we place renderings on instead?  
 </Callout>
