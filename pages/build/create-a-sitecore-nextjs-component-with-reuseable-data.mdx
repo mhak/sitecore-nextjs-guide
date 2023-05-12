@@ -121,7 +121,7 @@ You should see something like below. If not, ensure you've published all items i
 
 1. In VSCode, under `./rendering/src/components/Feature`
 1. create a "CallToAction" folder
-1. Under that a CallToAction.tsx file
+1. under that a CallToAction.tsx file
 
 ```tsx filename="CallToAction.tsx" showLineNumbers
 import {
@@ -154,13 +154,13 @@ export default withDatasourceCheck()<CallToActionProps>(CallToAction);
 
 Noteable differences with this component from a [component pulling data from the context item](/build/sitecore-nextjs-component-content-editable#update-component):
 1. We pull data from ComponentProps instead of sitecoreContext.route?.fields
-1. withDatasourceCheck - will render if there is a datasource  
+1. withDatasourceCheck - will only render if there is a datasource specified  
 
 Another thing to note is that if we have fields with spaces in the name, we must have quotes around the field name.
 
 ## Explore
-1. We added the datasource to article page's Standard Values which will make the "Learn Next.js" data appear for each article page.  Try changing
-the datasource for a specific article page.
+1. We added the datasource to article page's Standard Values which will make the "Learn Next.js" data appear for all article page.  Try changing
+the datasource for a specific article page to "Learn Sitecore".
 1. Try removing the datasource.  Notice the behavior of the component.
 
 <Callout>
