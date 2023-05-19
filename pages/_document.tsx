@@ -5,7 +5,16 @@ class MyDocument extends Document {
     return (
       <Html lang='en-US'>
         <Head>
-          <link rel="shortcut icon" href="/favicon.ico" type='image/x-icon'/>
+          <link
+            href="/favicon-light.svg"
+            rel="shortcut icon"
+            media="(prefers-color-scheme: light)"
+          />
+          <link
+            href="/favicon-dark.svg"
+            rel="shortcut icon"
+            media="(prefers-color-scheme: dark)"
+          />
           <script async src={`https://www.googletagmanager.com/gtag/js?id=G-MG47WVEFHL`} />
           <script
             dangerouslySetInnerHTML={{
