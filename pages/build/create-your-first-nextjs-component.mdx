@@ -25,43 +25,43 @@ Once you've logged on, you will see the launchpad. Click on the Content Editor.
 ## Create a rendering
 1. Navigate to `/sitecore/layout/Renderings/Feature`
 1. Create a rendering folder
-    1. Right click, insert, and select **Rendering Folder**
-    1. Name it "Article"
+    1. Right click, insert, and select `Rendering Folder`
+    1. Name it `Article`
 1. Create a json rendering
-    1. Navigate to the Article folder you created
-    1. Right click, insert, and select Json Rendering
-    1. Name the rendering "Article" as well
+    1. Navigate to the `Article` folder you created
+    1. Right click, insert, and select `Json Rendering`
+    1. Name the rendering `Article` as well
 
-At this point you should have something that looks like the below. Mentally note that the component name is also "Article" as specified under the "Component Name" field
+At this point you should have something that looks like the below. Mentally note that the component name is also `Article` as specified under the `Component Name` field
 ![Article Json Rendering in Sitecore](../../public/images/sitecore/article-rendering.png)
 
 ## Add rendering to Placeholder Settings
-The Placeholder Settings is a place where you specify what renderings content editors are allowed to place in a placeholder. We will add our newly created "Article"
-to the list of renderings that the "Main" placeholder is allowed to have.
+The Placeholder Settings is a place where you specify what renderings content editors are allowed to place in a placeholder. We will add our newly created `Article`
+to the list of renderings that the `Main` placeholder is allowed to have.
 
 1. Navigate to `/sitecore/layout/Placeholder Settings/Project/xmnextjs/jss-main`.  
 **Note**: you actually have to click on the `Main` item in Sitecore. This is because even though the item name is `jss-main`, the Display Name is `Main`.
 ![Placeholder Settings](../../public/images/sitecore/placeholder-settings.png)
-1. Under **Allowed Controls**, click edit
-1. Navigate to the Article component, and double click to select (alternatively, click the right arrow next to Selected)
+1. Under `Allowed Controls` click edit
+1. Navigate to the `Article` component, and double click to select (alternatively, click the right arrow next to Selected)
 ![Placeholder Settings - Allow article](../../public/images/sitecore/allow-article.png)
-1. Make sure "Article" is on the right side under **Selected**
+1. Make sure `Article` is on the right side under **Selected**
 1. Click OK
-1. You will see that "Article" is now in the **Allowed Controls** field
-1. On the main ribbon, click Save to save the **Main** Placeholder Setting item.
+1. You will see that `Article` is now in the `Allowed Controls` field
+1. On the main ribbon, click Save to save the `Main` Placeholder Setting item.
 
 ## Add rendering to a page
 Now that you have created a rendering and specified where on the page the rendering are allowed to be placed in, let's add it to an actual page.
 We will add the rendering to the home page.
 1. Navigate to `/sitecore/content/XmNextJs/home`
-1. On the main ribbon, make sure "home" is selected. Click Presentation > Details
+1. Make sure `home` item is selected. On the main ribbon, Click `Presentation > Details`
 ![Presentation Details](../../public/images/sitecore/presentation-details.png)
-1. Click on "Final Layout"
-1. We see that ContentBlock is the only rendering currently on the home page
+1. Click on `Final Layout`
+1. We see that `ContentBlock` is the only rendering currently on the home page
 ![Presentation Details - edit](../../public/images/sitecore/presentation-details-edit.png)
 1. Click edit
 1. Click Controls, then click Add
-1. Navigate to Renderings/Feature/Article and select Article
+1. Navigate to Renderings/Feature/Article and select `Article`
 1. Under "Add to Placeholder" enter `jss-main`. This was the placeholder that we allowed our rendering to be placed in. `jss-main` is also considered the placeholder key.
 ![Presentation Details - add rendering](../../public/images/sitecore/article-add-rendering.png)
 1. Click Select
@@ -69,14 +69,14 @@ We will add the rendering to the home page.
 ![Presentation Details - move rendering up](../../public/images/sitecore/rendering-move-up.png)
 1. Click OK, then Click OK to close all the dialogs.
 1. Let's view our homepage
-1. On the main ribbon, click Publish > Experience Editor. The Experience Editor is where we can preview and edit how our page looks.
+1. On the main ribbon, click `Publish > Experience Editor`. The Experience Editor is where we can preview and edit how our page looks.
 1. In the Experience Editor, we see a warning. This is because we have not created our React/Next.js component that is tied to this rendering yet.
 ![Experience editor - missing component](../../public/images/sitecore/experience-editor-missing-component.png)
 
 ## Create the Next.js component
 1. Open Visual Studio Code
 1. Under `./rendering/src/components`, create a `Feature` folder, and under that create an `Article` folder.
-1. Create a file and name it Article.tsx
+1. Create a file and name it `Article.tsx`
 ![Visual Studio - article.tsx](../../public/images/sitecore/articletsx.png)
 1. Add code. Notice that the component name must match the [Component Name field in Sitecore](#create-a-rendering).
 ```js

@@ -12,15 +12,15 @@ The approach we'll be taking is accessing the fields of the current Sitecore ite
 ## Create a Sitecore template
 In the Content Editor,
 
-1. Navigate to /sitecore/templates/Feature
-1. Create a Template Folder named "Article"
-    1. Under Feature, right click, Insert > Template Folder
-1. Create a template under that also named "Article"
-    1. right click, Insert > Template
-1. Add a new section named "Article"
+1. Navigate to `/sitecore/templates/Feature`
+1. Create a Template Folder named `Article`
+    1. Under Feature, right click, `Insert > Template Folder`
+1. Create a template under that also named `Article`
+    1. right click, `Insert > Template`
+1. Add a new section named `Article`
 1. Add fields
-    1. Add a field named "Title" and type as Single-Line Text
-    1. Add a field named "Body" and type as Rich Text
+    1. Add a field named `Title` and type as `Single-Line Text`
+    1. Add a field named `Body` and type as `Rich Text`
 
 ![Article Template](../../public/images/sitecore/article-template.png)
 
@@ -28,7 +28,7 @@ In the Content Editor,
 We will utilize Sitecore's template inheritance to bring in fields from the template was just created onto the template used by the home page.
 1. Navigate to /sitecore/templates/Project/xmnextjs/App Route
 1. Click Content
-1. Navigate to the "Article" template we created, and double click to select
+1. Navigate to the `Article` template we created, and double click to select
 1. Save
 ![Template Inheritance](../../public/images/sitecore/template-inheritance.png)
 1. Navigate to the home item and enter some data.

@@ -3,5 +3,6 @@
   "sitecore-nextjs-component-content-editable": "Make your Next.js component content-editable",
   "create-a-sitecore-nextjs-page": "Create a Sitecore Next.js Page",
   "sitecore-content-serialization": "Sitecore Content Serialization",
-  "create-a-sitecore-nextjs-component-with-reuseable-data": "Create a Sitecore Next.js component with reuseable data"
+  "create-a-sitecore-nextjs-component-with-reuseable-data": "Create a Sitecore Next.js component with reuseable data",
+  "add-placeholders-in-sitecore-nextjs": "Add placeholders in Sitecore Next.js"
 }
