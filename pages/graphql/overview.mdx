@@ -7,15 +7,16 @@ description: Learn how to use GraphQL in Sitecore Next.js to grab multiple data
 GraphQL is a query language that provides a flexible approach to API development.  It allows clients to request specific data they need from a server using a single query,
 reducing over-fetching of data. This is in contrast to RESTful APIs, where each endpoint needs to be built ahead of time and each "schema" is predetermined.
 
-So far, we have relied on the `Layout Service` to retrieve data about the page and the datasource item. What if we need to retrieve other items or even multiple items? This is where GraphQL comes in.
+So far, we have relied on the [Sitecore Layout Service](/build/sitecore-nextjs-component-content-editable#sitecore-layout-service) to retrieve data about the page and the datasource item.
+What if we need to retrieve other items or even multiple items? This is where GraphQL comes in.
 
 Sitecore comes with two (2) different flavors of GraphQL:
 
-1. **Integrated GraphQL** executes GraphQL queries within the Layout Service endpoint, and merges the query results into the Layout Service result JSON.
-The net result is that we only need to make *one* call to the layout service to grab both the regular datasource/page item as well as what we queried with GraphQL.
+1. **Integrated GraphQL** executes GraphQL queries within the `Layout Service` endpoint, and merges the query results into the Layout Service result JSON.
+The net result is that we only need to make *one* call to the Layout Service to grab both the regular datasource/page item data as well as what we queried with GraphQL.
 
 1. **Connected GraphQL** executes GraphQL queries directly against the `Sitecore GraphQL endpoint`. In contrast to the integrated GraphQL, this is an *additional* call -
-one to the `Layout Service` (to get data about datasource/page) and one to the Sitecore GraphQL endpoint.
+one to the `Layout Service` (to get data about datasource/page item data) and one to the Sitecore GraphQL endpoint.
 
 In this chapter of the guide, we will explore how to build GraphQL queries and learn how to use GraphQL to grab multiple data items.  
   
