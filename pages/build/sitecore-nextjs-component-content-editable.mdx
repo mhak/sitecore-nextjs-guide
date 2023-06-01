@@ -26,17 +26,17 @@ In the Content Editor,
 
 ## Update the home template
 We will utilize Sitecore's template inheritance to bring in fields from the template was just created onto the template used by the home page.
-1. Navigate to /sitecore/templates/Project/xmnextjs/App Route
-1. Click Content
+1. Navigate to `/sitecore/templates/Project/xmnextjs/App Route`
+1. Click `Content`
 1. Navigate to the `Article` template we created, and double click to select
 1. Save
 ![Template Inheritance](../../public/images/sitecore/template-inheritance.png)
-1. Navigate to the home item and enter some data.
+1. Navigate to the `home` item and enter some data.
 ![Update fields on the home page](../../public/images/sitecore/home-update-fields.png)
 1. Publish all your changes
 
-## Verify the home route data
-To verify data about our home page, we will look at the data returned by the Sitecore Layout Service. This will be populated into the SitecoreContext object and is accessible by `useSitecoreContext` hook in Next.js.
+## Sitecore Layout Service
+To verify data about our home page, we will look at the data returned by the `Sitecore Layout Service`. This will be populated into the SitecoreContext object and is accessible by `useSitecoreContext` hook in Next.js.
 1. In Visual Studio Code, look in `src/rendering/scjssconfig.json` and copy the apiKey value.
 1. In a browser, open `https://cm.xmnextjs.localhost/sitecore/api/layout/render/jss?item=/&sc_apikey={YOUR API KEY}&sc_mode=normal`
 1. You should see something like below. If not, ensure you've published all items in Sitecore.
@@ -61,7 +61,7 @@ To verify data about our home page, we will look at the data returned by the Sit
 ```
 ## Update component
 In Visual Studio Code, update your component. The first 3 imports from `@sitecore-jss/sitecore-jss-nextjs` are fields and field types to help render data from Sitecore.
-The last import is to the `useSitecoreContext` hook which gives access to the data populated into the SitecoreContext object which corresponds to the data returned by the [Sitecore Layout Service for the route](#verify-the-home-route-data).
+The last import is to the `useSitecoreContext` hook which gives access to the data populated into the SitecoreContext object which corresponds to the data returned by the [Sitecore Layout Service](#sitecore-layout-service) for the route.
 
 We will declare a type which maps properties to the field names defined in the Sitecore template. Your property names should match the field names defined in the Sitecore template.
 
