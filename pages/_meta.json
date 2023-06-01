@@ -7,5 +7,6 @@
   "index": "Introduction",
   "architecture": "Architecture Overview",
   "environment": "Environment",
-  "build": "Build"
+  "build": "Build",
+  "graphql": "GraphQL"
 }

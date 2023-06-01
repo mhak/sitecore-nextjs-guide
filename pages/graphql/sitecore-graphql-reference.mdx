@@ -1,0 +1,40 @@
+---
+title: Sitecore GraphQL quick references
+description: List of useful Sitecore GraphQL queries
+---
+
+# Sitecore GraphQL quick references
+Here you will find a list of useful Sitecore GraphQL query examples.
+
+* **xGraph Browser URL**: `{CM_DOMAIN}/sitecore/api/graph/edge/ui` e.g. https://cm.xmnextjs.localhost/sitecore/api/graph/edge/ui
+* **SSC API key is required. Pass with 'sc_apikey' query string or HTTP header.**  
+You can find your API key under `/sitecore/system/Settings/Services/API Keys`. It is the item ID of the item under that path.  
+* On the xGraph Browser, under **HTTP HEADERS**
+```
+{
+  "sc_apikey": "6924E4B6-DA0E-44FB-AE25-8C7A8FA2DFBF"
+}
+```
+* On the xGraph Browser, under **QUERY VARIABLES**
+```
+{
+  "datasource":"/sitecore/content/XmNextJs/Navigation/Header",
+  "contextItem": "/sitecore/content/XmNextJs/home",
+  "language": "en"
+}
+```
+
+## Getting the datasource and context item
+``` graphql
+query myQuery($datasource: String!, $contextItem: String!, $language: String!)
+{
+  datasource: item(path: $datasource, language: $language) {
+    id
+    name
+  }
+  contexItem: item(path: $contextItem, language: $language) {
+    id
+    name
+  }
+}
+```
