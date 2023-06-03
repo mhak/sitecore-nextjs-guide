@@ -36,6 +36,7 @@ If we take a look at our navigation component, notice that each link is hardcode
 Let us move all of that data into Sitecore so that content editors can add, edit, and remove the links. We will utilize the `General Link` field for this.
 
 ## Create navigation templates
+Create Sitecore templates for the navigation items.
 1. Navigate to `/sitecore/templates/Feature`
 1. Create a Template folder and call it `Navigation`
 1. Create a `Navigation Folder` template. It's purpose is to hold navigation items.
@@ -57,6 +58,7 @@ Your templates should look something like:
 ![Navigation item templates](../../public/images/sitecore/template-navigation-item.png)
 
 ## Create navigation items
+From the navigation templates, we will create navigation items.
 1. Navigate to `/sitecore/content/XmNextJs`
 1. Create a folder and call it `Navigation`
 1. Under that folder, right click > Insert from Template
@@ -80,3 +82,5 @@ Your templates should look something like:
         
 Your items should look something like:
 ![Navigation items](../../public/images/sitecore/navigation-items.png)
+
+Now that we have some navigation items, let's take a look at how to query the items.
