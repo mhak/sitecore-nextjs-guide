@@ -5,8 +5,9 @@ description: Learn about Sitecore's xGraph Browser
 import { Callout } from 'nextra-theme-docs'
 
 # xGraph Browser
-Sitecore's xGraph Browser is a tool that allows developers to explore and query Sitecore content using GraphQL. To get to it,
-visit `{CM_DOMAIN}/sitecore/api/graph/edge/ui` e.g. `https://cm.xmnextjs.localhost/sitecore/api/graph/edge/ui`
+Sitecore's xGraph Browser is a tool that allows developers to explore and query Sitecore content using GraphQL.  
+  
+To get to it, visit `{CM_DOMAIN}/sitecore/api/graph/edge/ui` e.g. `https://cm.xmnextjs.localhost/sitecore/api/graph/edge/ui`
 
 ![xGraph Browser](../../public/images/sitecore/xgraph-browser.png)
 
@@ -23,7 +24,7 @@ In the `xGraph Browser`, we will build a GraphQL query that takes a datasource i
 and retrieve its field information.
 
 ### Prerequisite - API key
-To execute a query, we must pass in an API key to query. You can find your API key under `/sitecore/system/Settings/Services/API Keys`. It is the item ID of the item under that path.
+To execute a query, we must pass in an API key. You can find your API key under `/sitecore/system/Settings/Services/API Keys`. It is the item ID of the item under that path.
 You can also find this API key under `src\rendering\scjssconfig.json`.
 
 In the `xGraph Browser`, enter the following under `HTTP HEADERS`. **NOTE:** Enter your actual API key.
@@ -34,7 +35,7 @@ In the `xGraph Browser`, enter the following under `HTTP HEADERS`. **NOTE:** Ent
 ```
 
 ### 1. Simple item query
-The first query we're going to do is build is a simple item query with a property of `datasource` as the field name. We will retrieve the `/sitecore/content/XmNextJs/Navigation/Header` item with `en` language
+The first query we're going to do is build is a simple item query with a property name of `datasource`. We will retrieve the `/sitecore/content/XmNextJs/Navigation/Header` item with `en` language
 and it's `id` and `name` fields.
 
 ``` graphql filename="QUERY"
@@ -219,3 +220,11 @@ You should have the same result as before.
 ```
 
 We have learned how to build a GraphQL using the `xGraph Browser`. Please see the next lesson on how to build a navigation component from this query.
+
+<Callout>
+  Knowledge check:  
+    1. What tool do you use to test out GraphQL queries against Sitecore data?
+    1. How do you authenticate your query?
+    1. How do you get the item Ids, name, and children?
+    1. How do you build named queries and pass in arguments?
+</Callout>
