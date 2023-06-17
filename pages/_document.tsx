@@ -15,6 +15,18 @@ class MyDocument extends Document {
             rel="shortcut icon"
             media="(prefers-color-scheme: dark)"
           />
+          <script type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html:`
+              {
+                "@context" : "https://schema.org",
+                "@type" : "WebSite",
+                "name" : "${process.env.SITE_NAME}",
+                "url" : "${process.env.SITE_URL}"
+              }
+              `
+            }}
+          />
           <script async src={`https://www.googletagmanager.com/gtag/js?id=G-MG47WVEFHL`} />
           <script
             dangerouslySetInnerHTML={{
