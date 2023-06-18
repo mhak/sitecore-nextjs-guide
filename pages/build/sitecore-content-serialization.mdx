@@ -10,6 +10,8 @@ At this point, it is a good idea to learn about content serialization. As a quic
 and the web database for published content. Content serialization is the process of exporting content items and their associated media, templates, layouts, and other site-related information
 from a Sitecore instance to a serialized format that can be easily transported and imported into another Sitecore instance. 
 
+![sitecore content serialization](../../public/images/serialization/serialization.png)
+
 Content serialization is often used in development and deployment workflows to move content between different environments, such as from a local development environment to a testing or production environment. It is also useful
 as a means to sync content between multiple developers. When working on a CMS site such Sitecore, you not only need the code to be in sync, but also the content. Content serialization provides a means for that
 and you would check in the files just like you check in code to the source repository. The serialization format is typically YML, and there are several third party serialization tools available in Sitecore such as Unicorn and TDS.
@@ -29,7 +31,9 @@ If you have been following our tutorial,
 ![allow cm login](../../public/images/install/cm-login.png)
 
 ## Serialize content from the Sitecore database
-We have created quite a few content items such as templates, renderings, and others. Let us serialize content from the database. We do this with the command:  
+We have created quite a few content items such as templates, renderings, and others. Let us serialize content from the database. 
+![sitecore content serialization - dotnet sitecore ser pull](../../public/images/serialization/diagram-ser-pull.png)
+We do this with the command:  
 1. run `dotnet sitecore ser pull`
 ![dotnet sitecore ser pull](../../public/images/serialization/ser-pull.png)
 
@@ -38,7 +42,9 @@ We have created quite a few content items such as templates, renderings, and oth
 ## Push content from serialized files into the Sitecore database
 To do the reverse and push content from serialized files into the Sitecore database, we use the command:  
 `dotnet sitecore ser push`
+![sitecore content serialization - dotnet sitecore ser push](../../public/images/serialization/diagram-ser-push.png)
 
+## Development workflow
 In a typical development work flow, you would
 1. Get the latest code from a branch (typically develop)
 1. Create a feature branch from the branch
