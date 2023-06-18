@@ -9,13 +9,15 @@ import { Callout } from 'nextra-theme-docs'
 Integrated GraphQL in Sitecore executes GraphQL queries within the `Layout Service` endpoint, and merges the query results into the `Layout Service` result JSON.
 This means that we only need to make one call to the `Layout Service` to grab both the datasource/page item data as well as what we queried with GraphQL.
 
+![Sitecore Integrated GraphQL Diagram](../../public/images/graphql/diagram-integrated-graphql.png)
+
 In this guide, we will learn how to build a Sitecore Next.js component using GraphQL in integrated mode. So far our current main navigation is hardcoded -
 we will rebuild it so that each link is content editable.  Also, since navigations are typically rendered in a different area of the page, we will utilize our
 previous knowledge of [placeholders](/build/add-placeholders-in-sitecore-nextjs) and add a header placeholder.
 
 If you haven't already, make sure you've [created the navigation items](/graphql/build-content-editable-navigation-items). Also, see how  we've [tested and build our GraphQL query](/graphql/xgraph-browser#build-graphql-query).
 
-Our navigation items has the following structure.
+Our navigation items has the following structure:
 ![Navigation items](../../public/images/sitecore/navigation-items.png)
 
 And our GraphQL query:
@@ -94,7 +96,9 @@ return (
 ```
 
 ## Placeholder updates
-In the content editor,
+We previously learned the steps necessary to [add a placeholder](/build/add-placeholders-in-sitecore-nextjs) - we'll have to do the same steps here for our `jss-header` placeholder.  
+
+In the Content Editor,
 1. Update the `jss-header` placeholder setting to allow the `MainNavigationIntegrated` rendering
     1. Navigate to `/sitecore/layout/Placeholder Settings/Project/xmnextjs/jss-header`
     1. Under the `Allowed Controls`, add `MainNavigationIntegrated` 
@@ -106,8 +110,11 @@ In the content editor,
     ![Layout Service Placeholders - jss-header](../../public/images/sitecore/layout-service-placeholders-jss-header.png)
 
 ## Add rendering
-We would like to add the rendering to every page. Typically base page. standard value
-1. Navigate to `/sitecore/templates/Project/xmnextjs/App Route/__Standard Values`
+We would like to add the `MainNavigationIntegrated` rendering to every page. It is generally a good idea to create a base page template and have other page
+templates inherit from this template. Fortunately for us, in our [create a page template](/build/create-a-sitecore-nextjs-page#create-a-page-template) tutorial,
+we decided to use the `App Route` as our base template (Article Route inherits from this template). We'll continue to do the same.
+
+1. Navigate to `/sitecore/templates/Project/xmnextjs/App Route/__Standard Values`. *Create the Standard Values, if it wasn't already created.*
 1. Under `Presentation > Details > Shared Layout`, add the `MainNavigationIntegrated` rendering
     1. `Placeholder`: jss-header
     1. `Data Source`: /sitecore/content/XmNextJs/Navigation/Header
@@ -235,5 +242,7 @@ export default withDatasourceCheck()<MainNavigationProps>(MainNavigationIntegrat
 ```
 <Callout>
   Knowledge check:  
-    1. 
+    1. What is the integrated GraphQL mode in Sitecore?
+    1. Where do you enter the GraphQL query?
+    1. *Excercise* - there are actually extra fields in our GraphQL query. Remove the unused fields from the query.
 </Callout>
