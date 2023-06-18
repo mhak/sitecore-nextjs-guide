@@ -1,6 +1,6 @@
 ---
 title: Sitecore Next.js GraphQL
-description: Learn how to use GraphQL in Sitecore Next.js to grab multiple data
+description: Overview of GraphQL in Sitecore Next.js. Learn the difference between Sitecore's Integrated GraphQL and Connected GraphQL.
 ---
 import { Callout } from 'nextra-theme-docs'
 
@@ -32,13 +32,16 @@ Sitecore comes with two (2) different flavors of GraphQL:
 
 1. **Integrated GraphQL** executes GraphQL queries within the `Layout Service` endpoint, and merges the query results into the Layout Service result JSON.
 The net result is that we only need to make *one* call to the Layout Service to grab both the regular datasource/page item data as well as what we queried with GraphQL.
-
+![Sitecore Integrated GraphQL Diagram](../../public/images/graphql/diagram-integrated-graphql.png)
 1. **Connected GraphQL** executes GraphQL queries directly against the `Sitecore GraphQL endpoint`. In contrast to the integrated GraphQL, this is an *additional* call -
 one to the `Layout Service` (to get data about datasource/page item data) and one to the Sitecore GraphQL endpoint.
 
-We will explore how to build GraphQL queries and learn how to use GraphQL to grab multiple data items.  
-  
-If you have been following our guide, the current main navigation is hardcoded. We will rebuild it so that each link is content editable.
+![Sitecore Connected GraphQL Diagram](../../public/images/graphql/diagram-connected-graphql.png)
+
+As you can imagine, Integrated GraphQL is often preferred.
+
+For this section of the guide, we will explore how to build GraphQL queries and learn how to use GraphQL to grab multiple data items. If you have been following our guide,
+the current main navigation is hardcoded. We will rebuild it so that each link is content editable.
 We will learn both integrated and connected approaches, and learn the use case for each.
 
 <Callout>
