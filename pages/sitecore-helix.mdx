@@ -26,8 +26,7 @@ Some have recommended to put everything on the project layer. I believe there is
 In this section of the guide, we will explore an approach to Sitecore Helix in a Next.js (and other JavaScript) site.
 
 ### Modules
-When we create components, we should colocate code related to each other. As your code base grows, it is alot easier to maintain and it is alot
-quicker to find code related to your component.
+When we create components, we should colocate code related to each other. As your code base grows, it is alot easier to maintain and it is alot quicker to find code related to your component.
 
 <Callout type="info">
     Correct
@@ -106,11 +105,9 @@ Code should further be separated into layers.
 </FileTree>
 
 ### Dependencies
-In Sitecore Helix, dependencies should flow downwards. This means that features should not rely on other features. Taking the example from above, the `Navigation` feature should not have
-a reference to the `Account` feature and vice versa.
+In Sitecore Helix, dependencies should flow downwards. This means that features should not rely on other features. Taking the example from above, the `Navigation` feature should not have a reference to the `Account` feature and vice versa.
 
-If multiple features or components rely on a piece of code, it most likely should be abstracted out and place on the `Foundation` layer. Taking the example from above again, both the `Login` and the `Account` component relies
-on `Authentication` so that code is placed o the `Foundation` layer.
+If multiple features or components rely on a piece of code, it most likely should be abstracted out and place on the `Foundation` layer. Taking the example from above again, both the `Login` and the `Account` component relies on `Authentication` so that code is placed on the `Foundation` layer.
 
 This also means that `Foundation` layer code should be the most stable and the least likely to change. When changing code on the `Foundation` layer, one must be careful
 as the code can affect multiple features.
