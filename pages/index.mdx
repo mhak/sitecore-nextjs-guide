@@ -2,6 +2,24 @@
 title: Introduction
 description: A beginner's guide to developing with Sitecore Next.js; designed to be a starting point to build Sitecore solutions in a headless, Next.js environment.
 ---
+import Head from 'next/head'
+ 
+<Head>
+    <meta property="og:site_name" content="Sitecore Next.js Guide" />
+    <script type="application/ld+json"
+    dangerouslySetInnerHTML={{
+        __html:`
+        {
+        "@context" : "https://schema.org",
+        "@type" : "WebSite",
+        "name" : "Sitecore Next.js Guide",
+        "url" : "https://sitecore-nextjs-guide.hakmeng.com"
+        }
+        `
+    }}
+    />
+</Head>
+ 
 # Introduction
  
 Welcome to a beginner's guide to developing with Sitecore Next.js. This guide is designed to be a starting point for developers who are new to building Sitecore solutions in a headless, Next.js environment.
