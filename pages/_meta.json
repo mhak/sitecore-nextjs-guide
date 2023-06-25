@@ -7,6 +7,7 @@
   "index": "Introduction",
   "architecture": "Architecture Overview",
   "environment": "Environment",
+  "sitecore-helix": "Sitecore Helix",
   "build": "Build",
   "graphql": "GraphQL"
 }

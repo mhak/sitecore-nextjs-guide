@@ -25,7 +25,7 @@ const config: DocsThemeConfig = {
   },
   docsRepositoryBase: 'https://github.com/mhak/sitecore-nextjs-guide/tree/main',
   sidebar: {
-    defaultMenuCollapseLevel: 0
+    defaultMenuCollapseLevel: 1
   },
   footer: {
     text: 'Sitecore Next.js Guide',
