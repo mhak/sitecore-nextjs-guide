@@ -1,0 +1,234 @@
+---
+title: xGraph Browser
+description: Learn about Sitecore's xGraph Browser and how to build a GraphQL query.
+---
+import { Callout, Steps } from 'nextra-theme-docs'
+
+# xGraph Browser - Build Sitecore GraphQL queries
+Sitecore's xGraph Browser is a tool that allows developers to explore and query Sitecore content using GraphQL.  For this portion of the lesson, we learn
+how to build a GraphQL query against our navigation items.
+  
+To get to it, visit `{CM_DOMAIN}/sitecore/api/graph/edge/ui` e.g. `https://cm.xmnextjs.localhost/sitecore/api/graph/edge/ui`
+
+![xGraph Browser](../../public/images/sitecore/xgraph-browser.png)
+
+There are three (3) areas in the xGraph browser:
+1. Area to build your GraphQL query
+1. Area to pass in query variables and HTTP headers
+1. Result of the query
+
+## Build GraphQL query
+Our [navigation items](/graphql/build-content-editable-navigation-items) has the following structure:
+![Navigation items](../../public/images/sitecore/navigation-items.png)
+
+In the `xGraph Browser`, we will build a GraphQL query that takes a datasource item (like the `Header` item). From this item, we will grab all of the children items 
+and retrieve its field information.
+
+<Steps>
+### Prerequisite - API key
+To execute a query, we must pass in an API key. You can find your API key under `/sitecore/system/Settings/Services/API Keys`. It is the item ID of the item under that path.
+You can also find this API key under `src\rendering\scjssconfig.json`.
+
+In the `xGraph Browser`, enter the following under `HTTP HEADERS`. **NOTE:** Enter your actual API key.
+``` json filename="HTTP HEADERS"
+{
+  "sc_apikey": "6924E4B6-DA0E-44FB-AE25-8C7A8FA2DFBF"
+}
+```
+
+### Simple item query
+The first query we're going to do is build is a simple item query with a property name of `datasource`. We will retrieve the `/sitecore/content/XmNextJs/Navigation/Header` item with `en` language
+and it's `id` and `name` fields.
+
+``` graphql filename="QUERY"
+{
+  datasource: item(path: "/sitecore/content/XmNextJs/Navigation/Header", language: "en") {
+    id
+    name
+  }
+}
+```
+``` json filename="RESULT"
+{
+  "data": {
+    "datasource": {
+      "id": "2CD2AB0A034B474A891B87F8B883C0A8",
+      "name": "Header"
+    }
+  }
+}
+```
+<Callout>
+  Your `id` value may be different. This is normal.
+</Callout>
+
+### Grab the children items
+The items we're interested in is the children items which will eventually be a collection of navigation items.
+``` graphql filename="QUERY" {5-10}
+{
+  datasource: item(path: "/sitecore/content/XmNextJs/Navigation/Header", language: "en") {
+    id
+    name
+    children {
+      results {
+        id
+        name
+      }
+    }
+  }
+}
+```
+``` json filename="RESULT" {6-21}
+{
+  "data": {
+    "datasource": {
+      "id": "2CD2AB0A034B474A891B87F8B883C0A8",
+      "name": "Header",
+      "children": {
+        "results": [
+          {
+            "id": "9F7596596F4C4EB48DF69F178260AB69",
+            "name": "Documentation"
+          },
+          {
+            "id": "5E8BDF17C5B54E04AF602652E74D2494",
+            "name": "Styleguide"
+          },
+          {
+            "id": "CAF060402E784EC4AB5D5CBEF7056299",
+            "name": "GraphQL"
+          }
+        ]
+      }
+    }
+  }
+}
+```
+### Inline fragments
+From the children items, we're interested in the `Navigation Link` field which is from the [Navigation Item](/graphql/build-content-editable-navigation-items#create-navigation-templates)
+template we built earlier. The technique we're utilizing is known as [inline fragments](https://graphql.org/learn/queries/#inline-fragments). As you can see, strongly typed queries are supported.
+
+``` graphql filename="QUERY" {9-13}
+{
+  datasource: item(path: "/sitecore/content/XmNextJs/Navigation/Header", language: "en") {
+    id
+    name
+    children {
+      results {
+        id
+        name
+        ... on NavigationItem {
+          navigationLink {
+            jsonValue
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+``` json filename="RESULT" {7-19}
+...
+      "children": {
+        "results": [
+          {
+            "id": "9F7596596F4C4EB48DF69F178260AB69",
+            "name": "Documentation",
+            "navigationLink": {
+              "jsonValue": {
+                "value": {
+                  "href": "https://jss.sitecore.com",
+                  "text": "Documentation",
+                  "linktype": "external",
+                  "url": "https://jss.sitecore.com",
+                  "anchor": "",
+                  "target": "_blank"
+                }
+              }
+            }
+          },
+...
+```
+### Named queries and arguments
+At this point, we have all the information we need to build our navigation. However, our query is hardcoded. Let's refactor it so that it is more robust and able to take
+both the `path` and the `language` as arguments.
+``` graphql filename="QUERY" {1-2, 16-17}
+query MainNavigationIntegratedQuery($datasource: String!, $language: String!) {
+  datasource: item(path: $datasource, language: $language) {
+    id
+    name
+    children {
+      results {
+        id
+        name
+        ... on NavigationItem {
+          navigationLink {
+            jsonValue
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+Notice how we declare a type for each argument. By default, GraphQL comes with these scalar types.
+* Int - signed 32‐bit integer
+* Float - signed double-precision
+* String - UTF‐8 string.
+* Boolean - binary, true or false
+* ID - unique identifier serialized as a string
+
+#### Query variables
+When we created arguments on our query, we must pass in the values to our query. On the bottom left-hand corner of the `xGraph Browser`, under `QUERY VARIABLES`, enter:
+``` json filename="QUERY VARIABLES"
+{
+  "datasource":"/sitecore/content/XmNextJs/Navigation/Header",
+  "language": "en"
+}
+```
+
+You should have the same result as before.
+``` json filename="RESULT"
+{
+  "data": {
+    "datasource": {
+      "id": "2CD2AB0A034B474A891B87F8B883C0A8",
+      "name": "Header",
+      "children": {
+        "results": [
+          {
+            "id": "9F7596596F4C4EB48DF69F178260AB69",
+            "name": "Documentation",
+            "navigationLink": {
+              "jsonValue": {
+                "value": {
+                  "href": "https://jss.sitecore.com",
+                  "text": "Documentation",
+                  "linktype": "external",
+                  "url": "https://jss.sitecore.com",
+                  "anchor": "",
+                  "target": "_blank"
+                }
+              }
+            }
+          },
+          ...
+        ]
+      }
+    }
+  }
+}
+```
+</Steps>
+
+We have learned how to build a GraphQL using the `xGraph Browser`. Please see the next lesson on how to build a navigation component from this query.
+
+<Callout>
+  Knowledge check:  
+    1. What tool do you use to test out GraphQL queries against Sitecore data?
+    1. How do you authenticate your query?
+    1. How do you get the item Ids, name, and children?
+    1. How do you build named queries and pass in arguments?
+</Callout>
