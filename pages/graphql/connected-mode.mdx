@@ -2,7 +2,7 @@
 title: Build a Sitecore Next.js component using GraphQL connected mode
 description: Learn how to build a Sitecore Next.js component using GraphQL connected mode
 ---
-import { Callout } from 'nextra-theme-docs'
+import { Callout, Steps } from 'nextra-theme-docs'
 
 # Build a Sitecore Next.js component using GraphQL connected mode
 
@@ -11,10 +11,7 @@ one to the `Layout Service` (to get data about datasource/page item data) and on
 
 ![Sitecore Integrated GraphQL Diagram](../../public/images/graphql/diagram-connected-graphql.png)
 
-In this guide, we will learn how to build a Sitecore Next.js component using GraphQL in connected mode. We will build a main navigation so that it pulls data from Sitecore. In contrast
-to the [integrated mode](/graphql/integrated-mode), we will *only* build the Next.js component and *not* the corresponding Sitecore rendering. This mode is exactly the same as using a GraphQL API in any JavaScript application.
-
-The use case here is sometimes there are components that should *always* appear at a certain spot and we do *not* want to allow content editors the ability to move them to different placeholders. 
+In this guide, we will learn how to build a Sitecore Next.js component using GraphQL in connected mode. We will build a main navigation so that it pulls data from Sitecore. 
 
 If you haven't already, make sure you've [created the navigation items](/graphql/build-content-editable-navigation-items). Also, see how  we've [tested and build our GraphQL query](/graphql/xgraph-browser#build-graphql-query).
 
@@ -41,25 +38,25 @@ query MainNavigationConnectedQuery($datasource: String!, $language: String!) {
   }
 }
 ```
-1. publish templates
-1. `src/rendering` run `jss graphql:update`
-src\rendering\src\temp\GraphQLIntrospectionResult.json
-1. npm run bootstrap or restart rendering
 
 ## Create Navigation Json rendering
 In the Content Editor,
-1. Navigate to `/sitecore/layout/Renderings/Feature` and create a `Navigation` rendering folder
-1. Under the `Navigation` folder, create a Json rendering `MainNavigationIntegrated`
-1. On the `MainNavigationIntegrated` item, set fields
+
+1. Navigate to /sitecore/layout/Renderings/Feature and create a `Navigation` rendering folder if it hasn't been created yet
+1. Under the `Navigation` folder, create a Json rendering `MainNavigationConnected`
+1. On the `MainNavigationConnected` item, set fields
     1. `Datasource Location`: /sitecore/content/XmNextJs/Navigation
     1. `Datasource Template`: /sitecore/templates/Feature/Navigation/Navigation Folder
-    1. `Component GraphQL Query`: *paste in the query above*
 
-![Navigation items - Integrated GraphQL query](../../public/images/sitecore/integrated-graphql-query-navigation.png)
+<Callout>
+  In contrast to the Integrated mode, we do not enter the GraphQL into `Component GraphQL Query` here.
+</Callout>
 
 ## Layout clean up
-If we examine `src\rendering\src\Layout.tsx`, notice that the `Navigation` component is outside of the `jss-main` placeholder. We'll need
-to clean this up and add a placeholder to hold our new `MainNavigationIntegrated` rendering.
+Skip to [placeholder updates](#placeholder-updates), if you did this previously in the Integrated mode excercise.  
+
+If you did not do the [layout cleanup](/graphql/integrated-mode#layout-clean-up) from the Integrated mode excercise, we'll have to update the `src\rendering\src\Layout.tsx`.
+Notice that the `Navigation` component is outside of the `jss-main` placeholder. We'll need to clean this up and add a placeholder to hold our new `MainNavigationComponent` rendering.
 
 ``` tsx filename="src\rendering\src\Layout.tsx" {9}
 return (
@@ -105,118 +102,302 @@ return (
 We previously learned the steps necessary to [add a placeholder](/build/add-placeholders-in-sitecore-nextjs) - we'll have to do the same steps here for our `jss-header` placeholder.  
 
 In the Content Editor,
-1. Update the `jss-header` placeholder setting to allow the `MainNavigationIntegrated` rendering
+1. Update the `jss-header` placeholder setting to allow the `MainNavigationConnected` rendering.
     1. Navigate to `/sitecore/layout/Placeholder Settings/Project/xmnextjs/jss-header`
-    1. Under the `Allowed Controls`, add `MainNavigationIntegrated` 
-    ![Placeholder Settings - jss-header](../../public/images/sitecore/placeholder-settings-jss-header.png)
+    1. Under the `Allowed Controls`, add `MainNavigationConnected` 
     
-1. Update the `xmnextjs Layout` to render `jss-header` data 
+1. Update the `xmnextjs Layout` to render `jss-header` data. *This was previously done on the integrated mode excercise*.
     1. Navigate to `/sitecore/layout/Layouts/Project/xmnextjs/xmnextjs Layout`
     1. Under `Layout Service Placeholders` field, add `jss-header`
-    ![Layout Service Placeholders - jss-header](../../public/images/sitecore/layout-service-placeholders-jss-header.png)
 
 ## Add rendering
-We would like to add the `MainNavigationIntegrated` rendering to every page. It is generally a good idea to create a base page template and have other page
+We would like to add the `MainNavigationConnected` rendering to every page. It is generally a good idea to create a base page template and have other page
 templates inherit from this template. Fortunately for us, in our [create a page template](/build/create-a-sitecore-nextjs-page#create-a-page-template) tutorial,
 we decided to use the `App Route` as our base template (Article Route inherits from this template). We'll continue to do the same.
 
 1. Navigate to `/sitecore/templates/Project/xmnextjs/App Route/__Standard Values`. *Create the Standard Values, if it wasn't already created.*
-1. Under `Presentation > Details > Shared Layout`, add the `MainNavigationIntegrated` rendering
+1. Under `Presentation > Details > Shared Layout`, change the `MainNavigationIntegrated` rendering to the `MainNavigationConnected` rendering, keeping the same placeholder and data source.
     1. `Placeholder`: jss-header
     1. `Data Source`: /sitecore/content/XmNextJs/Navigation/Header
 
 In Sitecore, publish our changes.
 
 ## Layout Service
-As always, lets double check that our `Layout Service` returns the expected data.
+Let's check our `Layout Service` and see what gets returned.
 
 In a browser, open `https://cm.xmnextjs.localhost/sitecore/api/layout/render/jss?item=/&sc_apikey={YOUR API KEY}&sc_mode=normal`
 
 
-``` json showLineNumbers {13-14,17-18,22-23}
-"sitecore": {
-  "route": {
+``` json showLineNumbers {9-13}
+{
+	"sitecore": {
     ...
-    "placeholders": {
-      "jss-main": [...],
-      "jss-header": [
-          {
-            "uid": "420108ad-deda-4944-a09d-63fdb9811582",
-            "componentName": "MainNavigationIntegrated",
-            "dataSource": "{2CD2AB0A-034B-474A-891B-87F8B883C0A8}",
-            "params": {},
-            "fields": {
-              "data": {
-                "datasource": {
-                  "id": "2CD2AB0A034B474A891B87F8B883C0A8",
-                  "name": "Header",
-                  "children": {
-                    "results": [
-                      {
-                        "id": "9F7596596F4C4EB48DF69F178260AB69",
-                        "name": "Documentation",
-                        "navigationLink": {
-                          "jsonValue": {
-                            "value": {
-                              "href": "https://jss.sitecore.com",
-                              "text": "Documentation",
-                              "linktype": "external",
-                              "url": "https://jss.sitecore.com",
-                              "anchor": "",
-                              "target": "_blank"
-                            }
-                          }
-                        }
-                      },
-  ...
+		"route": {
+			"placeholders": {
+				...
+				"jss-header": [
+					{
+						"uid": "b1e781a3-a93a-42e5-8ae5-fb3feefbf6a9",
+						"componentName": "MainNavigationConnected",
+						"dataSource": "{2CD2AB0A-034B-474A-891B-87F8B883C0A8}",
+						"params": {},
+						"fields": {}
+					}
+				]
+			}
+		}
+	}
+}
 ```
-Take a note of the data structure returned by our GraphQL query in the `Layout Service`. We will need to map these on our component.
+<Callout>
+  In contrast to the integrated mode, the layout service does not contain your GraphQL data.
+</Callout>
 
-## Navigation Component
-Finally, it is time to create our `MainNavigationIntegrated` component. We need to map our GraphQL data to types, loop through the data, and 
-render our links. Note the usage of the `Link` component provided by `'@sitecore-jss/sitecore-jss-nextjs'`.
+## GraphQL Types Update
+Since GraphQL is strongly typed, we'll need to let the Next.js application know about the `Navigation Item` template we've created.
 
-``` jsx filename="src\rendering\src\components\Feature\Navigation\MainNavigationIntegrated.tsx" showLineNumbers {1, 12-13, 20-21, 27-28, 33-34, 44-62}
-import { Link, LinkField, withDatasourceCheck } from '@sitecore-jss/sitecore-jss-nextjs'
-import { getPublicUrl } from '@sitecore-jss/sitecore-jss-nextjs';
-import { ComponentProps } from 'lib/component-props';
+<Steps>
+### Publish Sitecore templates
+Publish the Sitecore templates so that they are available on the web database
 
-// Prefix public assets with a public URL to enable compatibility with Sitecore Experience Editor.
-// If you're not supporting the Experience Editor, you can remove this.
-const publicUrl = getPublicUrl();
+### Update introspection data
+On `src/rendering` directory execute the command:  
 
-// These types maps to the Layout Service which has the GraphQL data
-type MainNavigationProps = ComponentProps & {
-  fields: {
-    data: {
-      datasource: DataSource
+`jss graphql:update`  
+
+This will update `src\rendering\src\temp\GraphQLIntrospectionResult.json` with data about the `Navigation Item`.
+</Steps>
+
+## Create GraphQL
+
+<Steps>
+### Create the GraphQL file
+Under the `src\components\Feature\Navigation` folder create a `MainNavigationConnectedQuery.graphql` file and paste in the query we created.
+
+``` graphql filename="src\rendering\src\components\Feature\Navigation\MainNavigationConnectedQuery.graphql"
+query MainNavigationConnectedQuery($datasource: String!, $language: String!) {
+  datasource: item(path: $datasource, language: $language) {
+    id
+    name
+    children {
+      results {
+        id
+        name
+        ... on NavigationItem {
+          navigationLink {
+            jsonValue
+          }
+        }
+      }
     }
   }
 }
-type DataSource = {
-    id: string,
-    name: string,
-    children: {
-      results: Array<NavigationItem>
-    }
-}
-type NavigationItem = {
+```
+
+### Generate types
+We'll need to regenerate the types so that our tsx files are aware of the `NavigationItem` template. On `src/rendering` execute:
+
+`npm run bootstrap`
+
+You should see a `MainNavigationConnectedQuery.graphql.d.ts` type file generated on same directory as your GraphQL file.  
+
+![Regenerate type](../../public/images/graphql/graphql-let.png)
+
+Alternatively, restarting your `rendering host` application will also generate the types.
+</Steps>
+
+## Create component
+We are now ready to create our Main Navigation component using GraphQL in connected mode.
+
+
+<Steps>
+### Create a type
+Create a type that corresponds to our expect GraphQL return.
+``` tsx filename="src\rendering\src\components\Feature\Navigation\MainNavigationConnected.tsx"
+import {
+    NavigationItem,
+} from './MainNavigationConnectedQuery.graphql';
+
+type NavigationData = {
   id: string,
   name: string,
-  navigationLink: {
-    jsonValue:  LinkField
-  } 
+  children: {
+    results: Array<NavigationItem>
+  }
+}
+```
+
+### Add HTML
+Add some HTML. Note that we're not rendering the navigation items just yet.
+
+``` tsx filename="src\rendering\src\components\Feature\Navigation\MainNavigationConnected.tsx" {13-28}
+import {
+    NavigationItem,
+} from './MainNavigationConnectedQuery.graphql';
+
+type NavigationData = {
+  id: string,
+  name: string,
+  children: {
+    results: Array<NavigationItem>
+  }
 }
 
-const MainNavigationIntegrated = (props: MainNavigationProps): JSX.Element => {
+const MainNavigationConnected = (): JSX.Element => {
+  return (
+    <div className="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom">
+      <h5 className="my-0 mr-md-auto font-weight-normal">
+        <a className="text-dark" href="/">
+          <img src={`/sc_logo.svg`} alt="Sitecore" />
+        </a>
+      </h5>
+      <nav className="my-2 my-md-0 mr-md-3">
+        {/* nav here */}
+      </nav>
+    </div>
+  );
+};
+
+export default MainNavigationConnected;
+```
+
+### Use GraphQL to get data
+``` tsx showLineNumbers filename="src\rendering\src\components\Feature\Navigation\MainNavigationConnected.tsx" {1-4, 6, 33-54}
+import {
+  GetStaticComponentProps,
+  GraphQLRequestClient,
+} from '@sitecore-jss/sitecore-jss-nextjs';
+import {
+    MainNavigationConnectedQueryDocument,
+    NavigationItem,
+} from './MainNavigationConnectedQuery.graphql';
+
+type NavigationData = {
+  id: string,
+  name: string,
+  children: {
+    results: Array<NavigationItem>
+  }
+}
+
+const MainNavigationConnected = (): JSX.Element => {
+  return (
+    <div className="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom">
+      <h5 className="my-0 mr-md-auto font-weight-normal">
+        <a className="text-dark" href="/">
+          <img src={`/sc_logo.svg`} alt="Sitecore" />
+        </a>
+      </h5>
+      <nav className="my-2 my-md-0 mr-md-3">
+        {/* nav here */}
+      </nav>
+    </div>
+  );
+};
+
+/**
+ * Will be called during SSG
+ * @param {ComponentRendering} rendering
+ * @param {LayoutServiceData} layoutData
+ * @param {GetStaticPropsContext} context
+ */
+export const getStaticProps: GetStaticComponentProps = async (rendering, layoutData) => {
+    const graphQLClient = new GraphQLRequestClient(config.graphQLEndpoint, {
+      apiKey: config.sitecoreApiKey,
+    });
+  
+    const result = await graphQLClient.request<NavigationData>(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      MainNavigationConnectedQueryDocument as any,
+      {
+        datasource: rendering.dataSource,
+        language: layoutData?.sitecore?.context?.language,
+      }
+    );
+  
+    return result;
+};
+
+export default MainNavigationConnected;
+```
+
+For Server Side Rendering, replace `getStaticProps` with `getServerSideProps`.
+```tsx
+import {
+  getServerSideProps,
+} from '@sitecore-jss/sitecore-jss-nextjs';
+
+export const getServerSideProps: GetServerSideComponentProps = async (rendering, layoutData) => {
+
+  const graphQLClient = new GraphQLRequestClient(config.graphQLEndpoint, {
+    apiKey: config.sitecoreApiKey,
+  });
+
+  const result = await graphQLClient.request<NavigationData>(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    MainNavigationConnectedQueryDocument as any,
+    {
+      datasource: rendering.dataSource,
+      language: layoutData?.sitecore?.context?.language,
+    }
+  );
+
+  return result;
+};
+```
+
+The `MainNavigationConnectedQueryDocument` type can be found the under the generated type file. The `MainNavigationConnectedQueryDocument` type contains properties to pass to the GraphQL query.
+
+```ts file="MainNavigationConnectedQuery.graphql.d.ts"
+export declare const MainNavigationConnectedQueryDocument: DocumentNode<MainNavigationConnectedQueryQuery, Exact<{
+    datasource: Scalars['String'];
+    language: Scalars['String'];
+}>>;
+```
+
+### Confirm data
+Visit your home page and confirm the GraphQL call `_next/data/development/en.json`
+
+![next/data/development/en](../../public/images/graphql/development-graphql-ajax.png)
+
+### Map and render data
+Once we've confirmed that the data returns, let's map and render our data.  We'll do some clean up as well.
+
+``` tsx showLineNumbers filename="src\rendering\src\components\Feature\Navigation\MainNavigationConnected.tsx" {1, 4, 6, 12-13, 22-24, 26-28, 38-56, 69-71, 88}
+import { Link } from '@sitecore-jss/sitecore-jss-nextjs'
+import {
+    GetStaticComponentProps,
+    constants,
+    GraphQLRequestClient,
+    withDatasourceCheck,
+  } from '@sitecore-jss/sitecore-jss-nextjs';
+import {
+    MainNavigationConnectedQueryDocument,
+    NavigationItem,
+} from './MainNavigationConnectedQuery.graphql';
+import config from 'temp/config';
+import { ComponentProps } from 'lib/component-props';
+
+type NavigationData = {
+  id: string,
+  name: string,
+  children: {
+    results: Array<NavigationItem>
+  }
+}
+type MainNavigationProps = ComponentProps & {
+    datasource: NavigationData
+}
+
+const MainNavigationConnected =(props: MainNavigationProps): JSX.Element => {
   // loop through the datasource children and grab all the jsonValues
-  let navigationItems = props.fields.data.datasource.children.results.map(i => i.navigationLink.jsonValue);
+  let navigationItems = props.datasource?.children.results.map(i => i.navigationLink?.jsonValue);
 
   return (
     <div className="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom">
       <h5 className="my-0 mr-md-auto font-weight-normal">
         <a className="text-dark" href="/">
-          <img src={`${publicUrl}/sc_logo.svg`} alt="Sitecore" />
+          <img src={`/sc_logo.svg`} alt="Sitecore" />
         </a>
       </h5>
       <nav className="my-2 my-md-0 mr-md-3">
@@ -244,12 +425,41 @@ const MainNavigationIntegrated = (props: MainNavigationProps): JSX.Element => {
   );
 };
 
-export default withDatasourceCheck()<MainNavigationProps>(MainNavigationIntegrated);
+/**
+ * Will be called during SSG
+ * @param {ComponentRendering} rendering
+ * @param {LayoutServiceData} layoutData
+ * @param {GetStaticPropsContext} context
+ */
+export const getStaticProps: GetStaticComponentProps = async (rendering, layoutData) => {
+    if (process.env.JSS_MODE === constants.JSS_MODE.DISCONNECTED) {
+      return null;
+    }
+    const graphQLClient = new GraphQLRequestClient(config.graphQLEndpoint, {
+      apiKey: config.sitecoreApiKey,
+    });
+  
+    const result = await graphQLClient.request<NavigationData>(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      MainNavigationConnectedQueryDocument as any,
+      {
+        datasource: rendering.dataSource,
+        language: layoutData?.sitecore?.context?.language,
+      }
+    );
+  
+    return result;
+};
+
+export default withDatasourceCheck()<ComponentProps>(MainNavigationConnected);
 ```
+</Steps>
+
 <Callout>
   Knowledge check:  
-    1. What is the integrated GraphQL mode in Sitecore?
+    1. What is the connected GraphQL mode in Sitecore?
     1. Where do you enter the GraphQL query?
-    1. *Excercise* - there are actually unused fields in our GraphQL query. Remove the `id` and `name` fields from the query as
-    we wish our payload to be as light as possible.
+    1. Where does the GraphQL data come from the Layout Service in connected mode? If not, where does it come from?
+    1. How do you regenerate GraphQL introspection data?
+    1. How do you regenerate types?
 </Callout>

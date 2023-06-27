@@ -28,7 +28,7 @@ This is in contrast to RESTful APIs, where each endpoint needs to be built ahead
 So far, we have relied on the [Sitecore Layout Service](/build/sitecore-nextjs-component-content-editable#sitecore-layout-service) to retrieve data about the page and the datasource item.
 What if we need to retrieve other items or even multiple items? This is where GraphQL comes in.
 
-Sitecore comes with two (2) different flavors of GraphQL:
+Sitecore comes with two (2) different modes of GraphQL:
 
 1. **Integrated GraphQL** executes GraphQL queries within the `Layout Service` endpoint, and merges the query results into the Layout Service result JSON.
 The net result is that we only need to make *one* call to the Layout Service to grab both the regular datasource/page item data as well as what we queried with GraphQL.
