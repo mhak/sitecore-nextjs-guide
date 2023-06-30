@@ -26,6 +26,16 @@ const config = {
         destination: '/environment/installing-and-running-the-sitecore-environment',
         permanent: true,
       },
+      {
+        source: '/graphql',
+        destination: '/graphql/overview',
+        permanent: true,
+      },
+      {
+        source: '/helix',
+        destination: '/sitecore-helix',
+        permanent: true,
+      },
     ]
   },
 }
