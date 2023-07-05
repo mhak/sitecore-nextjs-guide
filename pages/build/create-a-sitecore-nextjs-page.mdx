@@ -13,27 +13,27 @@ On our previous guide, we added Article fields to the home page, which is not a 
 ### Remove Template inheritance
 To remove the template inheritance. **Do not skip this step** - we will treat the /sitecore/templates/Project/xmnextjs/App Route template as the base template for all of our routes.
 
-1. Navigate to /sitecore/templates/Project/xmnextjs/App Route
+1. Navigate to `/sitecore/templates/Project/xmnextjs/App Route`
 1. Content Tab > Base template
-1. Double click Article from the right panel to remove it.
+1. Double click `Article` from the right panel to remove it.
 1. Save the template, and you'll receive a warning. Click Proceed
 
 ### Remove rendering from a page
-1. Navigate to /sitecore/content/XmNextJs/home
+1. Navigate to `/sitecore/content/XmNextJs/home`
 1. Presentation > Details
 1. Final Layout > click Edit
 1. Controls > Select Article, click Remove
 1. Click OK until all the modals are closed
 
 ## Create a page template
-1. On the Content Editor, navigate to /sitecore/templates/Project/xmnextjs
+1. On the Content Editor, navigate to `/sitecore/templates/Project/xmnextjs`
 1. Right click, insert, New Template
-    1. Give it a template name "Article Route"
-    1. Base template: Templates/Project/xmnextjs/App Route
+    1. Give it a template name `Article Route`
+    1. Base template: `Templates/Project/xmnextjs/App Route`
     1. Click next
-1. On the next page under location, select /sitecore/templates/Project/xmnextjs
-1. On the newly created template, under the "Content" tab
-    1. Select the previously created Article template under Feature
+1. On the next page under location, select `/sitecore/templates/Project/xmnextjs`
+1. On the newly created template, under the `Content` tab
+    1. Select the previously created `Article` template under Feature
 ![Article Route](../../public/images/sitecore/article-route.png)
 
 ### Template Icon
@@ -58,8 +58,8 @@ To create a Standard Values,
 A Standard Values Token is a way to automatically fill in fields upon *creation* of an item.  It is important to note that the token is expanded *only* upon creation of an item.
 If an item is created before a token is set on the Standard Values, the token would not be expanded and you'll see the unexpanded token value in the field.
 
-We will use the *$name* token to automatically fill in the "Title" field with the name of the item being created.
-1. On the template's Standard Values, in the "Title" field, enter *$name*
+We will use the `$name` token to automatically fill in the "Title" field with the name of the item being created.
+1. On the template's Standard Values, in the "Title" field, enter `$name`
 ![Template Token](../../public/images/sitecore/template-token.png)
 
 **More tokens**
@@ -95,7 +95,7 @@ Adding templates on Insert Options is a way to allow Content Editors to easily s
 ## Create page items
 Now it is time to create some article pages.
 
-1. Navigate to the home route /sitecore/content/XmNextJs/home
+1. Navigate to the home route `/sitecore/content/XmNextJs/home`
 1. Right click on the home node, Insert > Article Route. If you don't have that option, [see insert options](/build/create-a-sitecore-nextjs-page#insert-options)
 ![Insert Options](../../public/images/sitecore/insert-options.png)
 1. Call it "My first article page"
