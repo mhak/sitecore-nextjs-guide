@@ -18,10 +18,10 @@ We'll first start by creating the datasource template. This will be a template t
 1. In the Content editor, create a CallToAction template folder
     1.  Navigate to `/sitecore/templates/Feature`
     1. right click, insert, Template folder
-    1. enter "CallToAction"
-1. From the "CallToAction" template folder, create a template and name it "CallToAction"
-    1. (optional) Give the template an icon
-    1. Template section, name it "CallToAction"
+    1. enter `CallToAction`
+1. From the `CallToAction` template folder, create a template and name it `CallToAction`
+    1. *(optional)* Give the template an icon
+    1. Template section, name it `CallToAction`
     1. Fields:
         1. Description - Rich Text
         1. Button Text - Single line text
@@ -33,27 +33,27 @@ Once we have a CallToAction template, we can create the datasource items.
 
 1. On `/sitecore/content/XmNextJs`, create a folder to hold CallToAction items
     1. right click, insert, Insert from template
-    1. select "Folder" under /Templates/Common
-    1. give a name "CallToAction items"
+    1. select `Folder` under /Templates/Common
+    1. give a name `CallToAction items`
 1. This item will hold all of the CallToAction items that we're going to create
-1. On this folder item, configure `Insert Options` to include the "CallToAction" template we previously created
+1. On this folder item, configure `Insert Options` to include the `CallToAction` template we previously created
     1. Main ribbon, Configure, Insert Options
-    1. Select CallToAction
-1. Insert a "CallToAction" item under the "CallToAction items" folder
-    1. Name: Learn nextjs
-    1. Description: Learn Next.js! (feel free to put your own description)
-    1. Button Text: Learn more!
-1. Insert another "CallToAction" item under the "CallToAction items" folder
-    1. Name: Learn Sitecore
-    1. Description: Learn Sitecore! (feel free to put your own description)
-    1. Button Text: Learn more!
+    1. Select `CallToAction`
+1. Insert a `CallToAction` item under the "CallToAction items" folder
+    1. Name: `Learn nextjs`
+    1. Description: `Learn Next.js!` (feel free to put your own description)
+    1. Button Text: `Learn more!`
+1. Insert another `CallToAction` item under the "CallToAction items" folder
+    1. Name: `Learn Sitecore`
+    1. Description: `Learn Sitecore!` (feel free to put your own description)
+    1. Button Text: `Learn more!`
 
 ![CallToAction items](../../public/images/sitecore/cta-items.png)
 
 ## Create the rendering
-1. Navigate to /sitecore/layout/Renderings/Feature
-1. Create a rendering folder and call it "CallToAction"
-1. Create a Json Rendering underneath that and call it "CallToAction" as well
+1. Navigate to `/sitecore/layout/Renderings/Feature`
+1. Create a rendering folder and call it `CallToAction`
+1. Create a Json Rendering underneath that and call it `CallToAction` as well
 1. On this rendering, scroll down and set
     1. Datasource Location to `/sitecore/content/XmNextJs/CallToAction Items`
     1. Datasource Template to `/sitecore/templates/Feature/CallToAction/CallToAction`
@@ -75,7 +75,7 @@ We see two new settings we have not set before:
 ![datasource browse](../../public/images/sitecore/datasource-browse.png)
 Notice that it took us to the correct datasource node because of the Datasource Location that we've set. Also noticed that we are only allowed
 to add CallToAction items and not the folder because of the Datasource Template setting.
-1. Select Learn Nextjs
+1. Select `Learn Nextjs`
 1. Click OK and save the item
 1. Publish all your changes
 
@@ -120,8 +120,8 @@ You should see something like below. If not, ensure you've published all items i
 ## Create the component
 
 1. In VSCode, under `./rendering/src/components/Feature`
-1. create a "CallToAction" folder
-1. under that a CallToAction.tsx file
+1. create a `CallToAction` folder
+1. under that a `CallToAction.tsx` file
 
 ```tsx filename="CallToAction.tsx" showLineNumbers
 import {
@@ -153,14 +153,14 @@ export default withDatasourceCheck()<CallToActionProps>(CallToAction);
 ```
 
 Noteable differences with this component from a [component pulling data from the context item](/build/sitecore-nextjs-component-content-editable#update-component):
-1. We pull data from ComponentProps instead of sitecoreContext.route?.fields
-1. withDatasourceCheck - will only render if there is a datasource specified  
+1. We pull data from `ComponentProps` instead of `sitecoreContext.route?.fields`
+1. `withDatasourceCheck` - will only render if there is a datasource specified  
 
 Another thing to note is that if we have fields with spaces in the name, we must have quotes around the field name.
 
 ## Explore
-1. We added the datasource to article page's Standard Values which will make the "Learn Next.js" data appear for all article page.  Try changing
-the datasource for a specific article page to "Learn Sitecore".
+1. We added the datasource to article page's Standard Values which will make the `Learn Next.js` data appear for all article page.  Try changing
+the datasource for a specific article page to `Learn Sitecore`.
 1. Try removing the datasource.  Notice the behavior of the component.
 
 <Callout>
