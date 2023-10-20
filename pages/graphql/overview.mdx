@@ -40,6 +40,8 @@ one to the `Layout Service` (to get data about datasource/page item data) and on
 
 As you can imagine, Integrated GraphQL is often preferred.
 
+**IMPORTANT** If you are using XM Cloud, it is [best practice](https://doc.sitecore.com/xp/en/developers/101/developer-tools/experience-edge-for-xm-best-practices.html#do-not-put-global-data-in-the-layout-service-output-for-pages) to NOT utilize Integrated QL for global data such as navigation. The reason for this is because XM Edge takes a snapshot of items at published time. If you make a change to the navigation and integrated mode is used, you'll have to publish every single page to update the data. Utilize **Connected GraphQL** instead.
+
 For this section of the guide, we will explore how to build GraphQL queries and learn how to use GraphQL to grab multiple data items. If you have been following our guide,
 the current main navigation is hardcoded. We will rebuild it so that each link is content editable.
 We will learn both integrated and connected approaches, and learn the use case for each.
